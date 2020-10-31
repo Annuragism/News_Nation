@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>News Nation</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+<body>
+  <!-- Plug Bootstrap Nav Bar code here -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+ <a class="navbar-brand" href="#">NN</a><span>News Nation</span>
+ <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+   <span class="navbar-toggler-icon"></span>
+ </button>
+
+ <div class="collapse navbar-collapse " id="navbarSupportedContent">
+   <ul class="navbar-nav ml-auto">
+     <li class="nav-item active">
+       <a class="nav-link" href="/userhome">Home <span class="sr-only">(current)</span></a>
+     </li>
+     <!-- <li class="nav-item">
+       <a class="nav-link" href="#">Plans</a>
+     </li> -->
+     <li class="nav-item ">
+       <a class="nav-link " href="#">About</a>
+     </li>
+     <li class="nav-item ">
+       <a class="nav-link " href="/services">Services</a>
+     </li>
+       <li class="nav-item ">
+          <a class="nav-link " href="/contact">Contact us</a>
+        </li>
+     </li>
+     <li class="nav-item ">
+       <a class="nav-link" href="/customer_logout">Logout </a>
+     </li>
+
+   </ul>
+   <!-- <form class="form-inline my-2 my-lg-0">
+     <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+   </form> -->
+ </div>
+</nav>
+{{#if msg}}<div class="card text-white bg-success mb-3 text-center" style="height:50px;" id="msg" ><div class="card-body">{{msg}}</div></div>{{/if}}
+<div id="message"></div>
+<div style="height:60px;"></div>
+<h2>Welcome :{{uid}}</h2>
+<div class="container">
+<div id="recent_news" >
+{{# each news_data}}
+
+<div class='polaroidd'>
+<h4>By:{{this.user}}</h4>
+<img src="./{{this.imgname}}" alt='no image available' width='100px' height='100px'/><br>
+<input type="text" value="{{this.news}}" id="news" style="border:none; width:500px;"/> Click on news  to edit<br/>
+<input type="button" value="edit" class="btn btn-outline-dark" id="edit_btn"/>
+<input type="button" value="delete" class="btn btn-outline-dark" id="delete_btn"/>
+
+</div>
+{{/each}}
+
+</div>
+</div>
+
+
+<script>
+
+   $(document).ready(function(){
+     // alert("loaded")
+     $('#msg').delay(3000).fadeOut('slow')
+
+     $('#edit_btn').click(function(){
+          var news= $("#news").val();
+        alert(news)
+      var mydata = "news=" + news;
+       // AJAX code
+       $.ajax({
+         url:'update_news',
+         data:mydata,
+         type:'get',
+         success:function(response){
+           alert('News Updated...!!!');
+
+
+         }//success fun end
+       })//ajax end
+       })
+
+       $('#delete_btn').click(function(){
+            var news= $("#news").val();
+          alert(news)
+        var mydata = "news=" + news;
+         // AJAX code
+         $.ajax({
+           url:'delete_news',
+           data:mydata,
+           type:'get',
+           success:function(response){
+             alert('News Deleted...!!!');
+
+
+           }//success fun end
+         })//ajax end
+         })
+ });
+
+</script>
+
+
+<!-- CSS -->
+<style>
+
+#comment{
+  border-radius: 20px;
+}
+#comment_post_btn{
+  margin-left: 10px;
+  border-radius: 20px;
+
+}
+#submit{
+margin-top:5px;
+margin-left:220px;
+
+}
+
+body {
+
+  font-family: Roboto, sans-serif;
+}
+
+
+div.polaroid {
+  padding:15px;
+  width: 100%;
+  height:300px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+}
+
+.polaroidd {
+  padding: 15px;
+margin-top: 20px;
+  width: 100%;
+  height:250px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+}
+
+#box{
+  width:355px;
+  margin-left:355px;
+  border-color:black;
+}
+
+</style>
+
+</body>

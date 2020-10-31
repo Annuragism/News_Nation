@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>CMS Home</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+<body>
+  <!-- Plug Bootstrap Nav Bar code here -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+   <a class="navbar-brand" href="#">NN</a><span>News Nation</span>
+   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+     <span class="navbar-toggler-icon"></span>
+   </button>
+
+   <div class="collapse navbar-collapse " id="navbarSupportedContent">
+     <ul class="navbar-nav ml-auto">
+       <li class="nav-item active">
+         <a class="nav-link" href="/customerhome">Home <span class="sr-only">(current)</span></a>
+       </li>
+       <!-- <li class="nav-item">
+         <a class="nav-link" href="#">Plans</a>
+       </li> -->
+       <li class="nav-item ">
+         <a class="nav-link " href="#">About</a>
+       </li>
+       <li class="nav-item ">
+         <a class="nav-link " href="/services">Services</a>
+       </li>
+         <li class="nav-item ">
+            <a class="nav-link " href="/contact">Contact us</a>
+          </li>
+       </li>
+
+
+     </ul>
+   </div>
+  </nav>
+<div style="height:60px;"></div>
+<div class="container">
+  <div class="polaroid">
+    <div class="container">
+<h1 style="text-align:center;">News Nation</h1>
+<h2 style="color:green;">{{msg}}</h2>
+<h2 style="color:red;">{{err}}</h2>
+
+<form action='/customer_login_form' method="post" >
+  <div class="form-group">
+    <input type="text" class="form-control" id="box"  placeholder="Enter Email" name="customer_email"/>
+
+  </div>
+  <div class="form-group">
+    <input type="password" class="form-control" id="box" placeholder="Enter Password"  name="password">
+  </div>
+
+
+  <input type="submit" class="btn btn-outline-dark "  value="Login"/>
+</form>
+    </div>
+  </div>
+
+</div>
+<style>
+div.polaroid {
+  width: 100%;
+  height:300px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+}
+
+div.container {
+  padding: 10px;
+}
+
+
+</style>
+</body>
