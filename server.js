@@ -117,6 +117,18 @@ app.post('/post_news',(request,response)=>{
   //console.log(news);
 
   }
+  else {
+    var news=request.body.news;
+    var user=request.session.user;
+    var sql="insert into news (news,user) values(?,?)"
+    var values=[news,user]
+    sql=mysql.format(sql,values)
+    con.query(sql,(err)=>{
+      if (err) throw err;
+      else
+      response.render('userhome',{msg:'News posted Succesfully',uid:request.session.user})
+       })
+  }
 })
 //-----------------------------------------------------
 app.get('/get_news',(request,response)=>{
@@ -150,10 +162,7 @@ app.post('/post_comment',(request,response)=>{
    var user=request.session.user;
    var imgname=request.body.imgname;
    var news=request.body.news;
-// console.log(comment);
-// console.log(user);
-// console.log(imgname);
-// console.log(news);
+
    var sql="insert into comments(news,imgname,comment,comment_by) values(?,?,?,?)"
    var values=[news,imgname,comment,user]
    sql=mysql.format(sql,values)
@@ -170,7 +179,6 @@ app.post('/post_comment',(request,response)=>{
          else
          {
            response.render('view_all_news',{news_data:news_data,uid:request.session.user})
-
          }
           })
      }
@@ -192,44 +200,61 @@ app.get('/edit_delete_post',(request,response)=>{
 })
 //-----------------------------------------------------------------
 app.get('/update_news',(request,response)=>{
-  var news=request.query.news;
-  console.log(news);
+  var newsid=request.query.newsid[0];
+  console.log(newsid);
   var user=request.session.user;
   console.log(user);
-  var sql="update news set news=? where user=?"
-   var values=[news,user]
+  var news=request.query.news[0];
+  console.log(news);
+  var sql="update news set news=? where newsid=?"
+   var values=[news,newsid]
   sql=mysql.format(sql,values)
   con.query(sql,(err,result)=>{
     console.log(result);
     if (err) throw err;
-    else if(result.changedRows>0)
+    else
     {
-      response.json({data:result})
+      var sql="select * from news where user=?  "
+       var values=[user]
+      sql=mysql.format(sql,values)
+      con.query(sql,(err,news_data)=>{
+        //console.log(result);
+        if (err) throw err;
+        else
+        response.render('edit_delete_post',{msg:'News updated..!!!',news_data:news_data,uid:request.session.user})
+
+         })
 
     }
-    else
-    response.json({msg:'news not updated'})
      })
 })
 //-----------------------------------------------------------------
 app.get('/delete_news',(request,response)=>{
-  var news=request.query.news;
-  console.log(news);
+  var newsid=request.query.newsid;
+  // console.log(newsid);
   var user=request.session.user;
-  console.log(user);
-  var sql="delete from news  where user=? and news=?"
-   var values=[user,news]
+  // console.log(user);
+  var sql="delete from news  where newsid=?";
+   var values=[newsid]
   sql=mysql.format(sql,values)
   con.query(sql,(err,result)=>{
-    console.log(result);
+    // console.log(result);
     if (err) throw err;
-    else if(result.changedRows>0)
+    else
     {
-      response.json({data:result})
+      var sql="select * from news where user=?";
+       var values=[user]
+      sql=mysql.format(sql,values)
+      con.query(sql,(err,result)=>{
+        //console.log(result);
+        if (err) throw err;
+        else
+        response.render('edit_delete_post',{msg:'News deleted..!!!',news_data:result,uid:request.session.user})
+
+         })
 
     }
-    else
-    response.json({msg:'news not deleted'})
+
      })
 })
 //------------------------------------------------------------------

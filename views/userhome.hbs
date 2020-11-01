@@ -24,14 +24,12 @@
      <!-- <li class="nav-item">
        <a class="nav-link" href="#">Plans</a>
      </li> -->
+
      <li class="nav-item ">
-       <a class="nav-link " href="#">About</a>
-     </li>
-     <li class="nav-item ">
-       <a class="nav-link " href="/services">Services</a>
+       <a class="nav-link " href="/view_all_news">view all news</a>
      </li>
        <li class="nav-item ">
-          <a class="nav-link " href="/contact">Contact us</a>
+          <a class="nav-link " href="/edit_delete_post">My Post</a>
         </li>
      </li>
      <li class="nav-item ">
@@ -81,12 +79,13 @@
 
            var data='';
            console.log(response.data);
-           for(var i=0;i<response.data.length;i++)
+           for(var i=response.data.length-1;i>=0;i--)
            {
                // alert(response.data[i].customer_name);
                data=data+"<div class='polaroidd'>"+
                "<h4>By:"+response.data[i].user+"</h4>"+
-               "<p>"+"<img src=./"+response.data[i].imgname+" alt='no image available' width='100px' height='100px'/>"+response.data[i].news+"</p>"+
+               "<img src=./"+response.data[i].imgname+" alt='no image available' width='100px' height='100px'/>"+
+               "<p>"+response.data[i].news+"</p>"+
                "</div>";
 
            }//loop end
